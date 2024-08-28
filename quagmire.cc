@@ -2,9 +2,23 @@
 #include <string>
 #include <optional>
 
+#include <stdlib.h>
 #include <unistd.h>
+#include <getopt.h>
 
 #include "data.h"
+
+bool g_debug = false;
+bool g_verbose = false;
+unsigned int g_ratio = 30;
+
+enum {
+	MODE_NONE,
+	MODE_CREATE,
+	MODE_EXTRACT
+} g_mode;
+
+std::string g_file;
 
 void usage()
 {
@@ -27,9 +41,49 @@ void usage()
 	exit(EXIT_SUCCESS);
 }
 
+struct option g_options[] = {
+	{ "verbose", no_argument, NULL, 'v' },
+	{ "debug", no_argument, NULL, 'd' },
+	{ "ratio", required_argument, NULL, 'r' },
+	{ "create", required_argument, NULL, 'c' },
+	{ "extract", no_argument, NULL, 'x' },
+	{ NULL, 0, NULL, 0 }
+};
+
 int main(int argc, char **argv)
 {
-	usage();
+	int opt;
+	g_mode = MODE_NONE;
+
+	while ((opt = getopt_long(argc, argv, "vdr:c:x:", g_options, NULL)) != -1) {
+		switch (opt) {
+		case 'd':
+			g_debug = true;
+			break;
+		case 'v':
+			g_verbose = true;
+			break;
+		case 'c':
+			g_mode = MODE_CREATE;
+			g_file = std::string(optarg);
+			break;
+		case 'x':
+			g_mode = MODE_EXTRACT;
+			g_file = std::string(optarg);
+			break;
+		case 'r':
+			g_ratio = atoi(optarg);
+			break;
+		default:
+			usage();
+			break;
+		}
+	}
+	std::cout << std::boolalpha << "debug mode: " << g_debug << " verbose mode: " << g_verbose << std::endl;
+	std::cout << std::noboolalpha << "ratio: " << g_ratio << " mode: " << g_mode << " file: " << g_file << std::endl;
+	for (int i = optind; i < argc; ++i) {
+		std::cout << "found additional argument: " << std::string(argv[i]) << std::endl;
+	}
 	return 0;
 }
 
