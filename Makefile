@@ -11,7 +11,7 @@ CPP = g++
 LD = g++
 LDFLAGS = -Wl,-rpath,. -Wl,-rpath=/usr/local/lib64 -L. -lpthread -lss2x -lstdc++exp
 TARGET = quagmire
-OBJS = quagmire.o
+OBJS = quagmire.o qm-engine.o
 
 all: $(TARGET)
 

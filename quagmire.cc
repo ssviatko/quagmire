@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <getopt.h>
 
+#include "qm-engine.h"
 #include "data.h"
 
 bool g_debug = false;
@@ -131,6 +132,16 @@ int main(int argc, char **argv)
 			error("must have at least one passphrase/plaintext filename pair to add to quagmire.");
 	}
 
+	try {
+		if (g_mode == MODE_CREATE) {
+			qm::quagmire_create(g_debug, g_verbose, g_file, g_ratio, g_additional_args);
+		} else if (g_mode == MODE_EXTRACT) {
+			qm::quagmire_extract(g_debug, g_verbose, g_file, g_additional_args);
+		}
+	} catch (std::runtime_error& e) {
+		error(e.what());
+	}
+	
 	return 0;
 }
 
