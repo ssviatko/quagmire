@@ -1,0 +1,18 @@
+Examples
+
+quagmire -c file.quagmire "passphrase 1" file1 "passphrase2" file2 ...
+  Creates new quagmire containing file1, file2, etc. using the specified passphrases for each file.
+  Options: -r <ratio> will specify the ratio of encrypted data to random data, default is 30.
+quagmire -c file.quagmire -r 40 "passphrase 1" file1 "passphrase2" file2 ...
+  In this example, the ratio is set to 40. This means that 40% of the file will contain file data,
+  while 60% of it will contain random data. The upper limit is 80%, the lower limit is 10%.
+quagmire -x file.quagmire "passphrase 1" "passphrase 2"
+  Extracts the files that match the passphrases "passphrase 1" and "passphrase 2".
+
+Other switches:
+
+-v (verbose mode, displays info on what quagmire is doing during creation/extraction.
+-d debug mode
+
+(C) 2011, 2015, 2024 Good Neighbors LLC
+
