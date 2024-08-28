@@ -12,6 +12,7 @@ quagmire -x file.quagmire "passphrase 1" "passphrase 2"
 Other switches:
 
 -v (verbose mode, displays info on what quagmire is doing during creation/extraction.
+-h display this screen
 -d debug mode
 
 (C) 2011, 2015, 2024 Good Neighbors LLC
