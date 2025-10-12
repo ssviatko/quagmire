@@ -1,4 +1,4 @@
-INCL = -I./inc
+INCL = -I../ss2x/libss2x/.
 BUILD_NUMBER_FILE = build.no
 RELEASE_NUMBER_FILE = release.no
 BUILD_DATE=$$(date +'%Y-%m-%d %H:%M %z %Z')
@@ -9,7 +9,7 @@ UNAME = $(shell uname)
 CC = gcc
 CPP = g++
 LD = g++
-LDFLAGS = -Wl,-rpath,. -Wl,-rpath=/usr/local/lib64 -L. -lpthread -lss2x -lstdc++exp
+LDFLAGS = -Wl,-rpath,../ss2x/libss2x/. -L../ss2x/libss2x/. -lpthread -lss2x -lstdc++exp
 TARGET = quagmire
 OBJS = quagmire.o qm-engine.o
 
